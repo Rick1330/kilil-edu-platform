@@ -1,0 +1,70 @@
+{
+  "name": "kilil-edu-platform",
+  "version": "0.1.0",
+  "description": "Multi-university, multi-campus platform for Ethiopia (Ministry-grade)",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "build": "nx run-many --target=build --all",
+    "dev": "nx run-many --target=dev --all",
+    "lint": "nx run-many --target=lint --all",
+    "lint:fix": "nx run-many --target=lint --all --fix",
+    "test": "nx run-many --target=test --all",
+    "test:ci": "nx run-many --target=test --all --ci",
+    "typecheck": "nx run-many --target=typecheck --all",
+    "clean": "nx reset && rm -rf node_modules && rm -rf dist && rm -rf .next",
+    "prepare": "husky install",
+    "postinstall": "pnpm -r exec pnpm link --global || true"
+  },
+  "devDependencies": {
+    "@nx/devkit": "^19.0.0",
+    "@nx/eslint-plugin": "^19.0.0",
+    "@nx/jest": "^19.0.0",
+    "@nx/js": "^19.0.0",
+    "@nx/next": "^19.0.0",
+    "@nx/node": "^19.0.0",
+    "@nx/react": "^19.0.0",
+    "@nx/web": "^19.0.0",
+    "@nx/workspace": "^19.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.0",
+    "husky": "^9.0.0",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.0",
+    "nx": "^19.0.0",
+    "prettier": "^3.2.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "packages/*"
+  ],
+  "keywords": [
+    "education",
+    "ethiopia",
+    "university",
+    "multi-tenant",
+    "nextjs",
+    "nestjs",
+    "typescript",
+    "graphql"
+  ],
+  "author": "rick(elshaday) <elishum8@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rick1330/kilil-edu-platform.git"
+  }
+}
