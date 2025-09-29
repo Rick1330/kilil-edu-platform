@@ -1,0 +1,28 @@
+# Global fallback - requires review from repository owner
+* @rick1330
+
+# Backend services - requires backend team review
+/services/ @rick1330
+
+# Frontend applications - requires frontend team review
+/apps/web-portal/ @rick1330
+
+# Infrastructure and DevOps - requires DevOps team review
+/infra/ @rick1330
+/.github/workflows/ @rick1330
+/scripts/ @rick1330
+
+# Documentation - requires documentation team review
+/docs/ @rick1330
+*.md @rick1330
+
+# Configuration files - requires senior developer review
+*.json @rick1330
+*.yml @rick1330
+*.yaml @rick1330
+package.json @rick1330
+nx.json @rick1330
+
+# Security-sensitive files - requires security team review
+SECURITY.md @rick1330
+.gitleaks.toml @rick1330
