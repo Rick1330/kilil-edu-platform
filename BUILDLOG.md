@@ -87,7 +87,7 @@
 - [x] Repository setup and initial commit structure
 - [x] Nx monorepo configuration with pnpm
 - [x] Basic project structure with apps and packages
-- [ ] Docker compose setup for local development
+- [x] Docker compose setup for local development
 - [x] Initial CI/CD pipeline
 
 ### CI/CD Setup and Troubleshooting
@@ -116,10 +116,36 @@ The initial CI/CD pipeline setup encountered several configuration issues that r
     -   `lint` scripts in all service packages were updated to use the correct file paths.
 
 #### Sprint 2 (Weeks 3-4): Core Services
-- [ ] BFF service with GraphQL endpoint
-- [ ] Web portal with Ethiopian localization
-- [ ] Basic authentication flow (placeholder)
+- [x] BFF service with GraphQL endpoint
+- [x] Web portal with Ethiopian localization
+- [x] Basic authentication flow (placeholder)
 - [ ] Database schema design and Prisma setup
+
+#### Recent Implementation Updates (2025-10-01)
+
+##### BFF Bootstrap
+- Implemented complete NestJS BFF service with GraphQL hello world and health check endpoints
+- Created `main.ts`, `app.module.ts`, `health.controller.ts`, and `hello.resolver.ts`
+- Fixed TypeScript configuration issues for proper compilation
+- Added environment variable examples for BFF service
+- BFF service now runs successfully on http://localhost:4000 with:
+  - Health endpoint: http://localhost:4000/health
+  - GraphQL endpoint: http://localhost:4000/graphql
+
+##### Environment Configuration
+- Added `.env.example` files for both BFF and web-portal services
+- Updated documentation with comprehensive environment variable reference
+- Created `docs/dev/ENV_VARS.md` with detailed environment variable documentation
+
+##### Accessibility Testing
+- Implemented jest-axe accessibility testing for web portal
+- Created `a11y.home.test.ts` with basic accessibility checks
+- Configured Jest to properly handle accessibility testing with jsdom environment
+
+##### Documentation Updates
+- Updated `docs/dev/DEVELOPER_QUICKSTART.md` with BFF service information
+- Added instructions for running both web portal and BFF services
+- Documented environment variable usage
 
 #### Sprint 3 (Weeks 5-6): Domain Services
 - [ ] Enrollment service implementation
@@ -158,18 +184,16 @@ The initial CI/CD pipeline setup encountered several configuration issues that r
 - [x] Build log with assumptions and risks
 - [x] Technology stack decisions
 - [x] Development workflow setup
-- [ ] Repository initialization (in progress)
-- [ ] CI/CD pipeline setup (pending)
-- [ ] Initial service scaffolding (pending)
+- [x] Repository initialization
+- [x] CI/CD pipeline setup
+- [x] Initial service scaffolding
 
 ### Next Steps
-1. Initialize git repository with curated commits
-2. Set up Nx monorepo structure
-3. Create initial service stubs
-4. Configure CI/CD pipeline
-5. Deploy to staging environment for testing
+1. Configure CI/CD pipeline
+2. Deploy to staging environment for testing
+3. Begin Phase 1: Identity & Auth implementation
 
 ---
 **Phase 0 Status**: In Progress
-**Last Updated**: 2025-09-29
+**Last Updated**: 2025-10-01
 **Next Review**: After CI setup completion
