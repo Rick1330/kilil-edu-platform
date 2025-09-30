@@ -13,7 +13,9 @@ const handler = NextAuth({
     async jwt({ token, account, profile }) {
       // Attach access_token when refreshing
       if (account?.access_token) (token as any).access_token = account.access_token;
-      if (profile?.preferred_username) token.name = profile.preferred_username;
+      // Type assertion to access Keycloak-specific properties
+      const keycloakProfile = profile as { preferred_username?: string } | undefined;
+      if (keycloakProfile?.preferred_username) token.name = keycloakProfile.preferred_username;
       return token;
     },
     async session({ session, token }) {
