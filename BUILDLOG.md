@@ -142,6 +142,22 @@ The initial CI/CD pipeline setup encountered several configuration issues that r
 - Created `a11y.home.test.ts` with basic accessibility checks
 - Configured Jest to properly handle accessibility testing with jsdom environment
 
+##### TypeScript Configuration Fix
+- Fixed tsconfig schema loading errors by updating all tsconfig.json files to use correct schema URL
+- Updated schema URL from `https://json.schemastore.org/tsconfig` to `https://json.schemastore.org/tsconfig.json`
+- Applied fix to all 11 tsconfig.json files across the monorepo:
+  - apps/web-portal/tsconfig.json
+  - apps/bff/tsconfig.json
+  - packages/ethiopian-calendar/tsconfig.json
+  - packages/i18n/tsconfig.json
+  - services/billing-service/tsconfig.json
+  - services/degree-audit-stub-service/tsconfig.json
+  - services/enrollment-service/tsconfig.json
+  - services/notifications-service/tsconfig.json
+  - services/payments-adapter-service/tsconfig.json
+  - services/ussd-sms-service/tsconfig.json
+  - tsconfig.base.json
+
 ##### Documentation Updates
 - Updated `docs/dev/DEVELOPER_QUICKSTART.md` with BFF service information
 - Added instructions for running both web portal and BFF services
