@@ -141,7 +141,7 @@ jobs:
         continue-on-error: true
         run: |
           echo 'title = "gitleaks config (docs allowlist)"' > .gitleaks.toml
-          printf "[allowlist]\npaths = [\n  '''README\\.md''',\n  '''ARCHITECTURE\\.md''',\n  '''BUILDLOG\\.md''',\n  '''ROADMAP\\.md''',\n  '''INDEX\\.md''',\n  '''docs/''',\n  '''adr/'''\n]\n" >> .gitleaks.toml
+          printf "[allowlist]\npaths = [\n  '''README\\.md''',\n  '''docs/'''\n]\n" >> .gitleaks.toml
           pnpm dlx gitleaks detect --source . --no-git --config .gitleaks.toml -v || true
 
       - name: Trivy scan (non-blocking)
@@ -165,7 +165,7 @@ git add .github/workflows/ci.yml
 git commit -m "ci: add GitHub Actions ci.yml (use Corepack pnpm; Postgres/Redis services; non-blocking scans; CodeQL)"
 
 # Third commit - architecture documentation
-git add ARCHITECTURE.md BUILDLOG.md ROADMAP.md INDEX.md
+git add docs/ARCHITECTURE.md docs/BUILDLOG.md docs/ROADMAP.md docs/INDEX.md
 git commit -m "docs(architecture): add ARCHITECTURE.md, BUILDLOG.md, ROADMAP.md, INDEX.md"
 
 # Fourth commit - project scaffolding

@@ -35,7 +35,7 @@ git commit -m "chore(tooling): configure pnpm/Nx/ESLint/Prettier/commitlint/Husk
 - Configure build and development scripts"
 
 # Third commit - architecture documentation
-git add ARCHITECTURE.md BUILDLOG.md ROADMAP.md INDEX.md
+git add docs/ARCHITECTURE.md docs/BUILDLOG.md docs/ROADMAP.md docs/INDEX.md
 git commit -m "docs(architecture): add ARCHITECTURE.md, BUILDLOG.md, ROADMAP.md, INDEX.md
 
 - Comprehensive system architecture documentation
