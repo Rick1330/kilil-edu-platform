@@ -88,7 +88,32 @@
 - [x] Nx monorepo configuration with pnpm
 - [x] Basic project structure with apps and packages
 - [ ] Docker compose setup for local development
-- [ ] Initial CI/CD pipeline
+- [x] Initial CI/CD pipeline
+
+### CI/CD Setup and Troubleshooting
+
+The initial CI/CD pipeline setup encountered several configuration issues that required systematic debugging. The following fixes were implemented to create a stable and reliable pipeline:
+
+-   **pnpm Setup:** The workflow was updated to use the `pnpm/action-setup` action to ensure `pnpm` is correctly installed before other steps, resolving a "pnpm not found" error.
+-   **Dependency Resolution:**
+    -   A `pnpm-workspace.yaml` file was created to correctly define the monorepo structure.
+    -   All `@nx/*` packages were pinned to a consistent version (`19.8.4`) to fix dependency conflicts.
+    -   A `pnpm-lock.yaml` file was generated to ensure deterministic installations.
+-   **TypeScript Configuration:**
+    -   The base TypeScript configuration was consolidated into the existing `tsconfig.base.json`.
+    -   All packages and services were updated to extend this base configuration.
+    -   A `tsconfig.json` was created for the `web-portal` app with specific settings for Next.js, including JSX support and types for `@testing-library/jest-dom`.
+    -   JavaScript files in `web-portal` were renamed to `.tsx` to align with the TypeScript setup.
+-   **Testing Framework:**
+    -   Placeholder test files were added to all packages with a `test` script to resolve Jest's "no tests found" error without suppressing it.
+    -   The `web-portal` package was configured with a `jest.config.js` to use the `jsdom` environment and a `babel.config.js` for JSX transformation.
+    -   The test file in `@kilil/bff` was renamed to match the expected `.spec.ts` pattern.
+    -   The `__tests__` directory in `web-portal` was moved out of the `pages` directory to prevent Next.js from building test files as pages.
+    -   Jest configurations were updated with `testPathIgnorePatterns` to prevent redundant test runs on compiled `dist` files.
+-   **Linting:**
+    -   The root `.eslintrc.json` was corrected to use `plugin:@nx/typescript` and `plugin:@nx/javascript`.
+    -   A local `.eslintrc.json` was added to the `web-portal` to provide the correct ESLint environment for Next.js and Jest.
+    -   `lint` scripts in all service packages were updated to use the correct file paths.
 
 #### Sprint 2 (Weeks 3-4): Core Services
 - [ ] BFF service with GraphQL endpoint
