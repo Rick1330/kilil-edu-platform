@@ -2,39 +2,55 @@
 
 ## First 90 Days Milestones
 
-### Phase 0: Foundation (Weeks 1-2) ✅
+### Phase 0: Foundation (Weeks 1-2) ✅ **COMPLETED 2025-10-01**
 **Goal**: Enterprise-grade project foundation
 - [x] Architecture documentation and planning
 - [x] Repository setup with Nx monorepo
 - [x] CI/CD pipeline with security scanning
 - [x] Basic project structure
-- [ ] Docker development environment
-- [ ] Initial service stubs
+- [x] Docker development environment
+- [x] Initial service stubs
+- [x] BFF service with GraphQL hello world and health check endpoints
+- [x] Web portal with Ethiopian localization
+- [x] Environment variable examples for BFF and web-portal
+- [x] Basic accessibility testing (jest-axe) wired
 
 **Go/No-Go Gate**: 
 - CI pipeline green ✅
 - Security scanning operational ✅
-- Team onboarded to development environment
+- Team onboarded to development environment ✅
+- BFF boots with /health and GraphQL hello ✅
+- Web portal shell operational ✅
 
-### Phase 1: Identity & Access (Weeks 3-4)
+### Phase 1: Identity & Auth (Weeks 3-4)
 **Goal**: Secure authentication and authorization
-- [ ] Keycloak integration for OIDC/SAML
-- [ ] Multi-factor authentication (SMS-based)
-- [ ] Role-based access control (RBAC)
-- [ ] University-specific user management
-- [ ] Audit logging for all auth events
+- [ ] Keycloak in docker-compose (dev use), realm et-univ, clients (web public, bff confidential), base roles
+- [ ] packages/shared-auth (client/server helpers, principal shape)
+- [ ] BFF: JWT guard, /me resolver returning principal claims
+- [ ] Web: OIDC login/logout; user badge showing preferred_username
+- [ ] Protect one GraphQL resolver by role; add sample Nest guard in one service
+- [ ] Docs/runbooks for login, token claims, logout; smoke E2E
 
 **Deliverables**:
-- Authentication service integration
-- User management UI
-- Security documentation
+- Keycloak integration for OIDC/SAML
+- Multi-factor authentication (SMS-based) placeholder
+- Role-based access control (RBAC)
+- University-specific user management foundation
+- Audit logging for all auth events placeholder
+
+**Acceptance Criteria**:
+- Login works locally; /me returns claims
+- Protected route enforced by role
+- Docs updated with identity/auth runbooks
+- CI green with new auth components
+- Smoke E2E test passes
 
 **Go/No-Go Gate**:
 - Security audit passed
 - Penetration testing completed
 - Ministry security requirements met
 
-### Phase 2: Core Academic Services (Weeks 5-8)
+### Phase 2: Core Academic Services (Weeks 5-8) *Teaser*
 **Goal**: Essential academic functionality
 - [ ] Student enrollment system
 - [ ] Course catalog management
