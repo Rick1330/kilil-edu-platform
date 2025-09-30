@@ -20,7 +20,8 @@
     "@kilil/ethiopian-calendar": "workspace:*"
   },
   "devDependencies": {
-    "@next/eslint-config-next": "14.2.0",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.6",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.0",
