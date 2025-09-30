@@ -17,8 +17,7 @@
     "test:ci": "nx run-many --target=test --all --ci",
     "typecheck": "nx run-many --target=typecheck --all",
     "clean": "nx reset && rm -rf node_modules && rm -rf dist && rm -rf .next",
-    "prepare": "husky install",
-    "postinstall": "pnpm -r exec pnpm link --global || true"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@nx/devkit": "19.8.4",

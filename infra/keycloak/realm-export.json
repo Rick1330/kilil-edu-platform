@@ -1,0 +1,61 @@
+{
+  "realm": "et-univ",
+  "enabled": true,
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "resetPasswordAllowed": true,
+  "roles": {
+    "realm": [
+      {"name": "student"},
+      {"name": "faculty"},
+      {"name": "staff"},
+      {"name": "advisor"},
+      {"name": "registrar"},
+      {"name": "bursar"},
+      {"name": "librarian"},
+      {"name": "sponsor"}
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "web-portal",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "CHANGE_ME_IN_REAL_KEYCLOAK",
+      "redirectUris": [
+        "http://localhost:3000/api/auth/callback/*",
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": ["http://localhost:3000"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      }
+    },
+    {
+      "clientId": "bff",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "CHANGE_ME_IN_REAL_KEYCLOAK",
+      "redirectUris": [],
+      "webOrigins": []
+    }
+  ],
+  "users": [
+    {
+      "username": "sara",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Sara",
+      "lastName": "Student",
+      "email": "sara@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Passw0rd!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["student"]
+    }
+  ]
+}

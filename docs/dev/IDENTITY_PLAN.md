@@ -15,25 +15,20 @@ This document outlines the identity and authentication implementation plan for P
 
 #### Web Portal Client
 - **Client ID**: web-portal
-- **Type**: Public client
-- **Authentication**: PKCE (Proof Key for Code Exchange)
+- **Type**: Confidential client (in dev)
+- **Authentication**: Client secret
 - **Redirect URIs**: 
+  - http://localhost:3000/api/auth/callback/*
   - http://localhost:3000/*
-  - https://*.kilil.edu.et/*
 - **Web Origins**: 
   - http://localhost:3000
-  - https://*.kilil.edu.et
 
 #### BFF Client
 - **Client ID**: bff
 - **Type**: Confidential client
 - **Authentication**: Client secret
-- **Redirect URIs**: 
-  - http://localhost:4000/*
-  - https://bff.kilil.edu.et/*
-- **Web Origins**: 
-  - http://localhost:4000
-  - https://bff.kilil.edu.et
+- **Redirect URIs**: []
+- **Web Origins**: []
 
 ### Roles
 
@@ -66,6 +61,12 @@ super-admin
     ├── staff
     └── student
 ```
+
+### Test Users
+- **Username**: sara
+- **Password**: Passw0rd!
+- **Role**: student
+- **Email**: sara@example.com
 
 ## Tokens
 
@@ -101,24 +102,24 @@ super-admin
 
 ### Web Portal Flow (Authorization Code + PKCE)
 1. User navigates to web portal
-2. Web portal redirects to Keycloak login
+2. Web portal redirects to Keycloak login via NextAuth
 3. User authenticates with credentials
 4. Keycloak redirects back to web portal with authorization code
-5. Web portal exchanges code for tokens
+5. NextAuth exchanges code for tokens
 6. Tokens stored in secure HTTP-only cookies
 7. User session established
 
 ### BFF/API Flow (Bearer JWT)
 1. Web portal includes access token in Authorization header
-2. BFF validates JWT signature and claims
+2. BFF validates JWT signature and claims using JWKS
 3. BFF extracts user context from token
 4. BFF enforces role-based access control
 5. BFF processes request and returns response
 
 ### Logout Flow
 1. User initiates logout from web portal
-2. Web portal clears local session
-3. Web portal redirects to Keycloak logout endpoint
+2. Web portal clears local session via NextAuth
+3. NextAuth redirects to Keycloak logout endpoint
 4. Keycloak invalidates user session
 5. User redirected to post-logout URL
 
@@ -126,20 +127,30 @@ super-admin
 
 ### Web Portal
 ```bash
+# NextAuth configuration
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=devsecret
+
 # Keycloak configuration
-NEXT_PUBLIC_KEYCLOAK_ISSUER_URL=http://localhost:8080/realms/et-univ
-NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=web-portal
-NEXT_PUBLIC_KEYCLOAK_REDIRECT_URI=http://localhost:3000/callback
-NEXT_PUBLIC_KEYCLOAK_POST_LOGOUT_URI=http://localhost:3000
+KEYCLOAK_ISSUER_URL=http://localhost:8080/realms/et-univ
+KEYCLOAK_WEB_CLIENT_ID=web-portal
+KEYCLOAK_WEB_CLIENT_SECRET=CHANGE_ME_IN_REAL_KEYCLOAK
 ```
 
 ### BFF Service
 ```bash
 # Keycloak configuration
 KEYCLOAK_ISSUER_URL=http://localhost:8080/realms/et-univ
+KEYCLOAK_REALM=et-univ
 KEYCLOAK_CLIENT_ID=bff
-KEYCLOAK_CLIENT_SECRET=********
 KEYCLOAK_AUDIENCE=bff
+```
+
+### Keycloak (Infrastructure)
+```bash
+# Admin credentials (dev only)
+KEYCLOAK_ADMIN=admin
+KEYCLOAK_ADMIN_PASSWORD=admin
 ```
 
 ## Shared Authentication Package
@@ -148,18 +159,8 @@ KEYCLOAK_AUDIENCE=bff
 ```
 packages/shared-auth/
 ├── src/
-│   ├── client/
-│   │   ├── oidc-client.ts
-│   │   ├── session-manager.ts
-│   │   └── token-storage.ts
-│   ├── server/
-│   │   ├── jwt-validator.ts
-│   │   ├── role-guard.ts
-│   │   └── principal.ts
-│   ├── types/
-│   │   ├── claims.ts
-│   │   ├── roles.ts
-│   │   └── principal.ts
+│   ├── types.ts
+│   ├── parse.ts
 │   └── index.ts
 ├── package.json
 └── tsconfig.json
@@ -167,16 +168,14 @@ packages/shared-auth/
 
 ### Principal Shape
 ```typescript
-interface Principal {
+export type Principal = {
   sub: string;
-  preferredUsername: string;
   email?: string;
-  givenName?: string;
-  familyName?: string;
+  preferredUsername?: string;
   roles: string[];
-  tenantId: string;
-  campusId: string;
-}
+  tenantId?: string;
+  campusId?: string;
+};
 ```
 
 ## Security Considerations
@@ -212,13 +211,13 @@ interface Principal {
 ### Phase 1: Core Identity (Week 1)
 1. Keycloak in docker-compose (dev use)
 2. Realm et-univ with base configuration
-3. Clients: web-portal (public, PKCE), bff (confidential)
+3. Clients: web-portal (confidential), bff (confidential)
 4. Base roles implementation
 5. packages/shared-auth creation
 
 ### Phase 2: Integration (Week 1-2)
-1. Web portal OIDC login/logout implementation
-2. BFF JWT guard implementation
+1. Web portal NextAuth login/logout implementation
+2. BFF JWT guard implementation with JWKS validation
 3. /me resolver returning principal claims
 4. User badge showing preferred_username
 
@@ -267,3 +266,19 @@ interface Principal {
 - Suspicious login patterns
 - Token abuse detection
 - System health monitoring
+
+## Admin Access
+
+### Local Development
+- **Admin Console**: http://localhost:8080/admin
+- **Admin Username**: admin
+- **Admin Password**: admin
+- **Realm**: et-univ
+
+### Managing Users and Roles
+1. Navigate to http://localhost:8080/admin
+2. Login with admin/admin
+3. Select the "et-univ" realm
+4. Go to "Users" to manage users
+5. Go to "Roles" to manage roles
+6. Assign roles to users in the "Role Mappings" tab of each user
