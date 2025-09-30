@@ -50,6 +50,17 @@ KILIL is a multi-university, multi-campus education platform designed for Ethiop
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+## Current Implementation Status
+
+- [x] Nx monorepo scaffolded
+- [x] Web portal shell (Next.js 14, Tailwind, shadcn/ui, next‑intl, Noto Sans Ethiopic)
+- [x] BFF (NestJS) boots with /health and GraphQL hello
+- [x] Service stubs present (enrollment, billing, payments‑adapter, notifications, ussd‑sms, degree‑audit‑stub)
+- [x] Local infra: Postgres 15, Redis 7 (docker-compose)
+- [x] CI: Node 20 + Corepack pnpm 9; Postgres/Redis services; non‑blocking scans; CodeQL
+- [x] Env examples for web and bff
+- [x] Basic a11y test wired (jest-axe)
+
 ## Container Diagram (Level 2)
 
 ### Web Portal Container
@@ -98,7 +109,56 @@ KILIL is a multi-university, multi-campus education platform designed for Ethiop
 │  │  │ Discovery   │  │  Registry   │  │   Mesh      │    │ │
 │  │  └─────────────┘  └─────────────┘  └─────────────┘    │ │
 │  └─────────────────────────────────────────────────────────┘ │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                   Health Check                          │ │
+│  │  ┌─────────────┐                                        │ │
+│  │  │ /health     │                                        │ │
+│  │  └─────────────┘                                        │ │
+│  └─────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
+```
+
+## Trust Boundaries
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Trust Boundary: Browser                     │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    Web Portal (Next.js)                     │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+└─────────────────┬───────────────────────────────────────────────┘
+                  │ HTTPS/TLS
+┌─────────────────▼───────────────────────────────────────────────┐
+│              Trust Boundary: BFF/API Layer                      │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                      BFF Service                            │ │
+│  │  ┌─────────────┐  ┌─────────────┐                          │ │
+│  │  │ GraphQL     │  │JWT Guards   │                          │ │
+│  │  │  Endpoint   │  │(Phase 1)    │                          │ │
+│  │  └─────────────┘  └─────────────┘                          │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+└─────────────────┬───────────────────────────────────────────────┘
+                  │ Internal Network (mTLS planned)
+┌─────────────────▼───────────────────────────────────────────────┐
+│           Trust Boundary: Service Mesh (Future)                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │ Enrollment  │  │  Billing    │  │  Payments   │            │
+│  │  Service    │  │  Service    │  │  Adapter    │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐            │
+│  │Notification │  │  USSD/SMS   │  │Degree Audit │            │
+│  │  Service    │  │  Service    │  │   Stub      │            │
+│  └─────────────┘  └─────────────┘  └─────────────┘            │
+└─────────────────────────────────────────────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────────────────────────┐
+│              Trust Boundary: Data Stores                        │
+│  ┌─────────────┐  ┌─────────────┐                              │
+│  │ PostgreSQL  │  │    Redis    │                              │
+│  │   (Multi-   │  │   (Cache/   │                              │
+│  │  Tenant)    │  │  Session)   │                              │
+│  └─────────────┘  └─────────────┘                              │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Multi-Tenancy Strategy
@@ -142,6 +202,7 @@ User Request → Authentication → Tenant Resolution → Service Layer → Data
 - **Client-Facing**: Single endpoint for all client requests
 - **Schema Federation**: Combine multiple service schemas
 - **Performance**: Query optimization and caching
+- **Current Status**: Hello world endpoint operational at /graphql
 
 ### REST for Internal Communication
 - **Service-to-Service**: Standard REST APIs
@@ -261,3 +322,11 @@ User Request → Authentication → Tenant Resolution → Service Layer → Data
 - **Code Quality**: ESLint, Prettier, TypeScript
 - **Security**: CodeQL, dependency scanning
 - **Testing**: Unit, integration, e2e tests
+
+## Phase 1 Preview: Identity & Auth
+
+- Keycloak realm et‑univ; clients: web‑portal (public, PKCE), bff (confidential)
+- Roles: student, faculty, staff, advisor, registrar, bursar, librarian, sponsor
+- packages/shared-auth helpers
+- OIDC login/logout (web); JWT guards (BFF/services)
+- Protected resolver example + simple role check

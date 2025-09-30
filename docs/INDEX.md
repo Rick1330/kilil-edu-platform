@@ -16,6 +16,10 @@ Welcome to the KILIL Education Platform documentation. This enterprise-grade mul
 - [**Build Log**](BUILDLOG.md) - Development progress, decisions, risks, and mitigations  
 - [**Roadmap**](ROADMAP.md) - 90-day milestones, quarterly goals, and project timeline
 
+### Developer Documentation
+- [**Developer Quickstart**](dev/DEVELOPER_QUICKSTART.md) - Getting started guide for developers
+- [**Environment Variables**](dev/ENV_VARS.md) - Environment variable reference
+
 ### Quick Links
 - 🏗️ [Architecture Overview](ARCHITECTURE.md#overview) - High-level system design
 - 🔧 [Technology Stack](ARCHITECTURE.md#technology-stack) - Detailed tech specifications  
@@ -168,25 +172,14 @@ kilil-edu-platform/
 - **Offline Capability**: No internet required for basic functions
 - **Local Language Support**: Amharic USSD menus
 
-## 🎯 Next Steps
+## 🎯 Next: Phase 1 — Identity & Auth
 
-### Immediate Actions (This Week)
-1. Complete Phase 0 foundation setup
-2. Initialize git repository with curated commits
-3. Set up CI/CD pipeline
-4. Create initial service stubs
-
-### Short Term (Next 2 Weeks)
-1. Implement authentication system
-2. Create basic UI components
-3. Set up database schema
-4. Deploy to staging environment
-
-### Medium Term (Next Month)
-1. Complete core academic services
-2. Integrate payment systems
-3. Add Ethiopian calendar support
-4. Conduct security audit
+### Implementation Preview
+1. **Keycloak Integration**: Realm et-univ with web-portal (public, PKCE) and bff (confidential) clients
+2. **Role Management**: Student, faculty, staff, advisor, registrar, bursar, librarian, sponsor roles
+3. **Shared Auth Package**: Client/server helpers with principal shape definition
+4. **OIDC Flow**: Login/logout functionality in web portal with JWT guards in BFF
+5. **Protected Resources**: Sample protected GraphQL resolver with role-based access control
 
 ## 🤝 Contributing
 
@@ -208,5 +201,5 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 **Next Step**: Proceed to Phase 1 (Identity & Auth) after completing Phase 0 foundation.
 
-**Last Updated**: 2025-09-29  
+**Last Updated**: 2025-10-01  
 **Version**: 0.1.0 (Phase 0)
