@@ -2,9 +2,7 @@
  * Basic a11y check for the home shell to establish a contract.
  */
 import '@testing-library/jest-dom';
-import { axe, toHaveNoViolations } from 'jest-axe';
-
-expect.extend(toHaveNoViolations);
+import { axe } from 'jest-axe';
 
 describe('Home accessibility', () => {
   it('has no detectable a11y violations', async () => {
