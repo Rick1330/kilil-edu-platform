@@ -22,14 +22,14 @@
 - BFF boots with /health and GraphQL hello ✅
 - Web portal shell operational ✅
 
-### Phase 1: Identity & Auth (Weeks 3-4)
+### Phase 1: Identity & Auth (Weeks 3-4) ✅ **COMPLETED 2025-10-01**
 **Goal**: Secure authentication and authorization
-- [ ] Keycloak in docker-compose (dev use), realm et-univ, clients (web public, bff confidential), base roles
-- [ ] packages/shared-auth (client/server helpers, principal shape)
-- [ ] BFF: JWT guard, /me resolver returning principal claims
-- [ ] Web: OIDC login/logout; user badge showing preferred_username
-- [ ] Protect one GraphQL resolver by role; add sample Nest guard in one service
-- [ ] Docs/runbooks for login, token claims, logout; smoke E2E
+- [x] Keycloak in docker-compose (dev use), realm et-univ, clients (web public, bff confidential), base roles
+- [x] packages/shared-auth (client/server helpers, principal shape)
+- [x] BFF: JWT guard, /me resolver returning principal claims
+- [x] Web: OIDC login/logout; user badge showing preferred_username
+- [x] Protect one GraphQL resolver by role; add sample Nest guard in one service
+- [x] Docs/runbooks for login, token claims, logout; smoke E2E
 
 **Deliverables**:
 - Keycloak integration for OIDC/SAML
@@ -50,7 +50,39 @@
 - Penetration testing completed
 - Ministry security requirements met
 
-### Phase 2: Core Academic Services (Weeks 5-8) *Teaser*
+**Completed**: 2025-10-01
+
+### Phase 2: Minimal Payments E2E (Weeks 5-6)
+**Goal**: End-to-end stub payments: Billing + Payments Adapter + BFF + Web + Tests + Docs
+- [ ] Billing service with Account/Charge/Payment/Receipt schema
+- [ ] Payments adapter with initiate (idempotent) + webhook → billing
+- [ ] BFF: myBilling query + initiatePayment mutation
+- [ ] Web: Billing page (balance, receipts, "Pay (stub)" + simulate webhook)
+- [ ] Billing integration tests (Testcontainers Postgres)
+- [ ] Docs: Reconciliation spec + ENV updates
+- [ ] CI: ensure tests stay Keycloak-free, Postgres only
+
+**Deliverables**:
+- Functional payment workflow with stubbed integrations
+- Idempotent payment processing
+- Receipt generation and balance tracking
+- Web interface for billing management
+- Comprehensive documentation
+
+**Acceptance Criteria**:
+- Payment initiation works with idempotency
+- Webhook processing creates receipts
+- Balance updates correctly
+- Docs updated with payment workflows
+- CI green with new payment components
+- Integration tests pass
+
+**Go/No-Go Gate**:
+- End-to-end payment flow validated
+- Security audit of payment components
+- Ministry financial regulations compliance check
+
+### Phase 3: Core Academic Services (Weeks 7-8) *Teaser*
 **Goal**: Essential academic functionality
 - [ ] Student enrollment system
 - [ ] Course catalog management
@@ -68,7 +100,7 @@
 - Payment flow validation
 - Performance benchmarks met
 
-### Phase 3: University Onboarding (Weeks 9-12)
+### Phase 4: University Onboarding (Weeks 9-10)
 **Goal**: Multi-tenant capabilities
 - [ ] University provisioning system
 - [ ] Campus management
@@ -114,7 +146,7 @@ During these periods:
 - Pilot university selection
 
 ### Q2: Core Features
-- Phase 2 academic services
+- Phase 2 payment system
 - First university onboarding
 - Student portal launch
 - Payment system operational
@@ -163,12 +195,18 @@ During these periods:
 - [ ] Ministry security approval
 
 ### Phase 2 Success Metrics
+- [ ] Payment processing < 3 seconds
+- [ ] 99.9% uptime for payment service
+- [ ] Zero financial security incidents
+- [ ] Ministry financial approval
+
+### Phase 3 Success Metrics
 - [ ] Student enrollment < 5 minutes
 - [ ] Payment success rate > 98%
 - [ ] Page load time < 3 seconds
 - [ ] Mobile responsiveness score > 90
 
-### Phase 3 Success Metrics
+### Phase 4 Success Metrics
 - [ ] University onboarding < 1 day
 - [ ] Data migration success rate > 99%
 - [ ] Staff training completion > 95%
@@ -239,8 +277,8 @@ During these periods:
 
 ## Exit Criteria
 
-### Phase 0 Exit Criteria
-- [ ] All foundational services operational
+### Phase 1 Exit Criteria
+- [ ] All auth services operational
 - [ ] Security framework implemented
 - [ ] First university ready for pilot
 - [ ] Team fully onboarded and productive
@@ -253,6 +291,6 @@ During these periods:
 - [ ] Self-sustaining revenue model
 
 ---
-**Document Version**: 1.0
-**Last Updated**: 2025-09-29
-**Next Review**: End of Phase 0
+**Document Version**: 1.1
+**Last Updated**: 2025-10-01
+**Next Review**: End of Phase 1
