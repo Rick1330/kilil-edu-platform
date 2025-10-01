@@ -187,6 +187,18 @@ The initial CI/CD pipeline setup encountered several configuration issues that r
 - Updated test files to reference App Router components instead of Pages Router
 - Resolved typecheck errors related to missing module references
 
+##### CI Workflow Fixes
+- Fixed ESLint pattern issues in multiple package.json files that were causing linting to fail on Windows
+- Updated lint scripts to remove problematic single quotes around glob patterns:
+  - apps/bff/package.json
+  - services/billing-service/package.json
+  - services/degree-audit-stub-service/package.json
+  - services/enrollment-service/package.json
+  - services/notifications-service/package.json
+  - services/payments-adapter-service/package.json
+  - services/ussd-sms-service/package.json
+- All CI steps now pass: lint, typecheck, test, and build
+
 #### Sprint 3 (Weeks 5-6): Domain Services
 - [ ] Enrollment service implementation
 - [ ] Billing service with payment integration stubs
