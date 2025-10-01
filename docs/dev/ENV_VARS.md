@@ -47,8 +47,8 @@ This document lists the environment variables used across the KILIL Education Pl
 ### Billing Service (@kilil/billing-service)
 | Variable | Purpose | Default | Where Used |
 |----------|---------|---------|------------|
-| PORT | HTTP server port | 3002 | Server configuration |
-| DATABASE_URL | PostgreSQL connection string | postgresql://postgres:postgres@localhost:5432/et_univ | Database connection |
+| PORT | HTTP server port | 3003 | Server configuration |
+| DATABASE_URL | PostgreSQL connection string | postgresql://postgres:postgres@localhost:5434/et_univ | Database connection |
 
 ### Payments Adapter Service (@kilil/payments-adapter-service)
 | Variable | Purpose | Default | Where Used |
