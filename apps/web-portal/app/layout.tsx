@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { SessionProvider } from "next-auth/react";
+import { SessionProviderWrapper } from '@components/SessionProviderWrapper';
 
 export const metadata: Metadata = {
   title: 'KILIL Education Platform',
@@ -15,9 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionProvider>
+        <SessionProviderWrapper>
           {children}
-        </SessionProvider>
+        </SessionProviderWrapper>
       </body>
     </html>
   );

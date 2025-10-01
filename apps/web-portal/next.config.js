@@ -1,5 +1,11 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config) => {
+    config.resolve.alias['@components'] = path.resolve(__dirname, 'components');
+    return config;
+  },
   images: {
     domains: ['localhost'],
   },

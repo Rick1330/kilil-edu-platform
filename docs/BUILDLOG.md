@@ -199,6 +199,18 @@ The initial CI/CD pipeline setup encountered several configuration issues that r
   - services/ussd-sms-service/package.json
 - All CI steps now pass: lint, typecheck, test, and build
 
+##### Module Resolution and TypeScript Configuration Fixes (2025-10-01)
+- Fixed module resolution issues in web-portal by:
+  - Creating SessionProviderWrapper component to properly wrap next-auth SessionProvider
+  - Adding index.ts file in components directory for better module exports
+  - Configuring path aliases (@components/*) in tsconfig.json for cleaner imports
+  - Adding webpack alias configuration in next.config.js for runtime resolution
+  - Updating import statements to use path aliases instead of relative paths
+- Resolved TypeScript schema validation errors by removing external schema references:
+  - Removed "$schema" entries from all tsconfig.json files to prevent IDE validation issues
+  - Fixed tsconfig loading errors that were causing build failures
+  - Applied changes to tsconfig.base.json and apps/web-portal/tsconfig.json
+
 #### Sprint 3 (Weeks 5-6): Domain Services
 - [ ] Enrollment service implementation
 - [ ] Billing service with payment integration stubs
