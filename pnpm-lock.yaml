@@ -18,8 +18,8 @@ importers:
         specifier: 21.6.2
         version: 21.6.2(@babel/traverse@7.28.4)(@types/node@20.19.18)(babel-plugin-macros@3.1.0)(nx@19.8.4)(ts-node@10.9.2(@types/node@20.19.18)(typescript@5.9.2))(typescript@5.9.2)
       '@nx/js':
-        specifier: 19.8.4
-        version: 19.8.4(@babel/traverse@7.28.4)(@types/node@20.19.18)(nx@19.8.4)(typescript@5.9.2)
+        specifier: 21.6.2
+        version: 21.6.2(@babel/traverse@7.28.4)(nx@19.8.4)
       '@nx/next':
         specifier: 21.6.2
         version: 21.6.2(@babel/core@7.28.4)(@babel/traverse@7.28.4)(@rspack/core@1.5.8(@swc/helpers@0.5.17))(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(eslint@8.57.1)(next@14.2.32(@babel/core@7.28.4)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.93.2))(nx@19.8.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ts-node@10.9.2(@types/node@20.19.18)(typescript@5.9.2))(typescript@5.9.2)(vite@7.1.7(@types/node@20.19.18)(jiti@1.21.7)(less@4.4.1)(sass-embedded@1.93.2)(sass@1.93.2)(stylus@0.59.0)(terser@5.44.0)(yaml@2.8.1))(vitest@3.2.4(@types/node@20.19.18)(jiti@1.21.7)(jsdom@20.0.3)(less@4.4.1)(sass-embedded@1.93.2)(sass@1.93.2)(stylus@0.59.0)(terser@5.44.0)(yaml@2.8.1))(webpack@5.102.0)
@@ -13184,7 +13184,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
     optionalDependencies:
       rollup: 4.52.3
 
