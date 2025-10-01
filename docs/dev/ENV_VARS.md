@@ -15,6 +15,11 @@ This document lists the environment variables used across the KILIL Education Pl
 | NEXT_PUBLIC_APP_NAME | Application name | KILIL University | UI display |
 | NEXT_PUBLIC_BFF_URL | BFF GraphQL endpoint | http://localhost:4000/graphql | GraphQL client |
 | FRONTEND_URL | Frontend URL for CORS | http://localhost:3000 | CORS configuration |
+| NEXTAUTH_URL | NextAuth base URL | http://localhost:3000 | NextAuth configuration |
+| NEXTAUTH_SECRET | NextAuth secret | devsecret | NextAuth session encryption |
+| KEYCLOAK_ISSUER_URL | Keycloak issuer URL | http://localhost:8080/realms/et-univ | OIDC configuration |
+| KEYCLOAK_WEB_CLIENT_ID | Keycloak web client ID | web-portal | OIDC client configuration |
+| KEYCLOAK_WEB_CLIENT_SECRET | Keycloak web client secret | CHANGE_ME_IN_REAL_KEYCLOAK | OIDC client authentication |
 
 ## BFF Service (@kilil/bff)
 
@@ -81,6 +86,9 @@ No environment variables required.
 ### Ethiopian Calendar (@kilil/ethiopian-calendar)
 No environment variables required.
 
+### Shared Auth (@kilil/shared-auth)
+No environment variables required.
+
 ## Infrastructure
 
 ### PostgreSQL
@@ -92,6 +100,12 @@ No environment variables required.
 
 ### Redis
 No environment variables required for basic operation.
+
+### Keycloak
+| Variable | Purpose | Default | Where Used |
+|----------|---------|---------|------------|
+| KEYCLOAK_ADMIN | Keycloak admin username | admin | Keycloak administration |
+| KEYCLOAK_ADMIN_PASSWORD | Keycloak admin password | admin | Keycloak administration |
 
 ## Security Notes
 

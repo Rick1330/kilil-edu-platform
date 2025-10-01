@@ -10,17 +10,26 @@
 
 1. Start local infrastructure:
    ```bash
-   docker-compose -f infra/docker-compose.yml up -d postgres redis
+   docker-compose -f infra/docker-compose.yml up -d keycloak postgres redis
    ```
 
 2. Check service readiness:
    ```bash
+   # Check Keycloak
+   docker-compose -f infra/docker-compose.yml exec keycloak curl -fsS http://localhost:8080/realms/et-univ/.well-known/openid-configuration
+   
    # Check PostgreSQL
    docker-compose -f infra/docker-compose.yml exec postgres pg_isready -U postgres
    
    # Check Redis
    docker-compose -f infra/docker-compose.yml exec redis redis-cli ping
    ```
+
+3. Access Keycloak admin console:
+   - URL: http://localhost:8080/admin
+   - Realm: et-univ
+   - Admin credentials: admin/admin (dev only)
+   - Optional: Change client secrets in the web-portal and bff clients
 
 ## Development Commands
 
@@ -57,6 +66,11 @@ pnpm --filter @kilil/web-portal dev
 ```
 URL: http://localhost:3000
 
+To test authentication:
+1. Navigate to http://localhost:3000/api/auth/signin
+2. Login with test user: sara / Passw0rd!
+3. Visit the protected page at http://localhost:3000/protected
+
 ### BFF Service (NestJS)
 ```bash
 pnpm --filter @kilil/bff dev
@@ -64,13 +78,14 @@ pnpm --filter @kilil/bff dev
 Health Check: http://localhost:4000/health
 GraphQL Endpoint: http://localhost:4000/graphql
 
-Example GraphQL query:
-```
-{
-  hello {
-    message
-  }
-}
+Example authenticated GraphQL query:
+```bash
+# First, get an access token by logging in via the web portal
+# Then use it in the Authorization header:
+curl -X POST http://localhost:4000/graphql \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"{ me { sub email preferredUsername roles } securePing }"}'
 ```
 
 ## Environment Variables
@@ -87,6 +102,7 @@ Copy these to `.env` or `.env.local` files respectively to use them locally.
 If you see "port already allocated" errors:
 1. Check what's using the ports:
    ```bash
+   netstat -ano | findstr :8080
    netstat -ano | findstr :5432
    netstat -ano | findstr :6379
    ```
@@ -104,6 +120,12 @@ Make sure all required files are present:
 - `apps/bff/src/app.module.ts`
 - `apps/bff/src/health.controller.ts`
 - `apps/bff/src/hello.resolver.ts`
+
+### Keycloak Not Starting
+If Keycloak fails to start:
+1. Check the logs: `docker-compose -f infra/docker-compose.yml logs keycloak`
+2. Ensure the realm-export.json file is properly formatted
+3. Verify the file path in the docker-compose.yml volume mapping
 
 ## Accessibility Testing
 

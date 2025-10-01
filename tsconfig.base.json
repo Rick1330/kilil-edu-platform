@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig.json",
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
@@ -17,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@kilil/i18n": ["packages/i18n/src/index.ts"],
-      "@kilil/ethiopian-calendar": ["packages/ethiopian-calendar/src/index.ts"]
+      "@kilil/ethiopian-calendar": ["packages/ethiopian-calendar/src/index.ts"],
+      "@kilil/shared-auth": ["packages/shared-auth/src/index.ts"]
     },
     "allowSyntheticDefaultImports": true,
     "strict": false,
