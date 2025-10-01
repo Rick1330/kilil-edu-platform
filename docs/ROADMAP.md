@@ -54,7 +54,7 @@
 
 ### Phase 2: Minimal Payments E2E (Weeks 5-6)
 **Goal**: End-to-end stub payments: Billing + Payments Adapter + BFF + Web + Tests + Docs
-- [ ] Billing service with Account/Charge/Payment/Receipt schema
+- [x] Billing service with Account/Charge/Payment/Receipt schema
 - [ ] Payments adapter with initiate (idempotent) + webhook → billing
 - [ ] BFF: myBilling query + initiatePayment mutation
 - [ ] Web: Billing page (balance, receipts, "Pay (stub)" + simulate webhook)

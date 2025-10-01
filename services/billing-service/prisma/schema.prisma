@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id           String   @id @default(uuid())
+  personId     String
+  balanceCents Int
+  currency     String   @default("ETB")
+  charges      Charge[]
+  payments     Payment[]
+  receipts     Receipt[]
+  createdAt    DateTime @default(now())
+}
+
+model Charge {
+  id           String   @id @default(uuid())
+  accountId    String
+  account      Account  @relation(fields: [accountId], references: [id])
+  amountCents  Int
+  type         String
+  createdAt    DateTime @default(now())
+}
+
+enum PaymentStatus {
+  PENDING
+  SETTLED
+  REVERSED
+}
+
+model Payment {
+  id           String         @id @default(uuid())
+  accountId    String
+  account      Account        @relation(fields: [accountId], references: [id])
+  amountCents  Int
+  channel      String
+  txnRef       String         @unique
+  status       PaymentStatus  @default(PENDING)
+  receipts     Receipt[]
+  createdAt    DateTime       @default(now())
+}
+
+model Receipt {
+  id           String   @id @default(uuid())
+  paymentId    String
+  payment      Payment  @relation(fields: [paymentId], references: [id])
+  accountId    String
+  account      Account  @relation(fields: [accountId], references: [id])
+  amountCents  Int
+  channel      String
+  settledAt    DateTime @default(now())
+}
