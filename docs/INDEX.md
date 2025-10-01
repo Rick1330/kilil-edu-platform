@@ -172,14 +172,26 @@ kilil-edu-platform/
 - **Offline Capability**: No internet required for basic functions
 - **Local Language Support**: Amharic USSD menus
 
-## 🎯 Next: Phase 1 — Identity & Auth
+## 🎉 Phase 1 Complete (2025-10-01). Next: Phase 2 — Payments E2E
 
 ### Implementation Preview
-1. **Keycloak Integration**: Realm et-univ with web-portal (public, PKCE) and bff (confidential) clients
-2. **Role Management**: Student, faculty, staff, advisor, registrar, bursar, librarian, sponsor roles
-3. **Shared Auth Package**: Client/server helpers with principal shape definition
-4. **OIDC Flow**: Login/logout functionality in web portal with JWT guards in BFF
-5. **Protected Resources**: Sample protected GraphQL resolver with role-based access control
+1. **Keycloak Integration**: Realm et-univ with web-portal (public, PKCE) and bff (confidential) clients ✅
+2. **Role Management**: Student, faculty, staff, advisor, registrar, bursar, librarian, sponsor roles ✅
+3. **Shared Auth Package**: Client/server helpers with principal shape definition ✅
+4. **OIDC Flow**: Login/logout functionality in web portal with JWT guards in BFF ✅
+5. **Protected Resources**: Sample protected GraphQL resolver with role-based access control ✅
+
+## 🎯 Next: Phase 2 — Minimal Payments E2E
+
+### Implementation Plan
+1. **Billing Service**: Account/Charge/Payment/Receipt schema with balance/receipts endpoints
+2. **Payments Adapter**: Initiate (idempotent) + webhook → billing integration
+3. **BFF Integration**: myBilling query + initiatePayment mutation
+4. **Web Portal**: Billing page (balance, receipts, "Pay (stub)" + simulate webhook)
+5. **Testing**: Billing integration tests with Testcontainers Postgres
+6. **Documentation**: Reconciliation spec + ENV updates
+
+See [Roadmap](ROADMAP.md) for complete Phase 2 details and [Payments Reconciliation](payments/RECONCILIATION.md) for technical specifications.
 
 ## 🤝 Contributing
 
@@ -197,9 +209,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ---
 
-**📌 Note**: This is Phase 0 of the KILIL Education Platform. The foundation is being established with enterprise-grade practices and Ethiopia-specific requirements. 
+**📌 Note**: This is Phase 1 of the KILIL Education Platform. Identity & Authentication has been completed with enterprise-grade practices and Ethiopia-specific requirements. 
 
-**Next Step**: Proceed to Phase 1 (Identity & Auth) after completing Phase 0 foundation.
+**Next Step**: Proceed to Phase 2 (Minimal Payments E2E) implementation.
 
 **Last Updated**: 2025-10-01  
-**Version**: 0.1.0 (Phase 0)
+**Version**: 0.2.0 (Phase 1 Complete)
