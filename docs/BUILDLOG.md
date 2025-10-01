@@ -177,6 +177,13 @@ The initial CI/CD pipeline setup encountered several configuration issues that r
   - docs/dev/DEVELOPER_QUICKSTART.md
   - docs/dev/ENV_VARS.md
 
+##### Web Portal Build Fixes
+- Resolved Next.js App Router build issues by creating proper root layout
+- Removed deprecated `appDir` experimental flag from next.config.js
+- Eliminated conflicting pages router files to fully migrate to App Router
+- Removed custom Babel configuration that was causing warnings
+- Added proper root layout and page components for App Router structure
+
 #### Sprint 3 (Weeks 5-6): Domain Services
 - [ ] Enrollment service implementation
 - [ ] Billing service with payment integration stubs
