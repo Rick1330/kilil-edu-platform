@@ -41,7 +41,7 @@ export class BillingService {
 
   async createCharge(chargeData: { accountId: string; amountCents: number; type: string }) {
     // Update account balance
-    const account = await this.prisma.account.update({
+    await this.prisma.account.update({
       where: { id: chargeData.accountId },
       data: {
         balanceCents: {
@@ -87,7 +87,7 @@ export class BillingService {
     });
 
     // Create receipt
-    const receipt = await this.prisma.receipt.create({
+    await this.prisma.receipt.create({
       data: {
         paymentId: payment.id,
         accountId: paymentData.accountId,

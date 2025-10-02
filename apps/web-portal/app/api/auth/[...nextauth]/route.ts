@@ -1,6 +1,19 @@
 import NextAuth from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
 
+// Augment the module declarations
+declare module "next-auth/jwt" {
+  interface JWT {
+    access_token?: string;
+  }
+}
+
+declare module "next-auth" {
+  interface Session {
+    access_token?: string;
+  }
+}
+
 const handler = NextAuth({
   providers: [
     KeycloakProvider({
@@ -12,14 +25,14 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, account, profile }) {
       // Attach access_token when refreshing
-      if (account?.access_token) (token as any).access_token = account.access_token;
+      if (account?.access_token) token.access_token = account.access_token;
       // Type assertion to access Keycloak-specific properties
       const keycloakProfile = profile as { preferred_username?: string } | undefined;
       if (keycloakProfile?.preferred_username) token.name = keycloakProfile.preferred_username;
       return token;
     },
     async session({ session, token }) {
-      (session as any).access_token = (token as any).access_token;
+      session.access_token = token.access_token;
       return session;
     }
   },
