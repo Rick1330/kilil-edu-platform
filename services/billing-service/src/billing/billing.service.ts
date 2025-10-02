@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, PaymentStatus } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class BillingService {
@@ -76,13 +76,13 @@ export class BillingService {
     // Create or update payment
     const payment = await this.prisma.payment.upsert({
       where: { txnRef: paymentData.txnRef },
-      update: { status: PaymentStatus.SETTLED },
+      update: { status: 'SETTLED' },
       create: {
         accountId: paymentData.accountId,
         amountCents: paymentData.amountCents,
         channel: paymentData.channel,
         txnRef: paymentData.txnRef,
-        status: PaymentStatus.SETTLED,
+        status: 'SETTLED',
       },
     });
 
