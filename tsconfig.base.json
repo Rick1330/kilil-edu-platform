@@ -19,7 +19,8 @@
       "@kilil/i18n": ["packages/i18n/src/index.ts"],
       "@kilil/ethiopian-calendar": ["packages/ethiopian-calendar/src/index.ts"],
       "@kilil/shared-auth": ["packages/shared-auth/src/index.ts"],
-      "@kilil/billing-service/*": ["services/billing-service/src/*"]
+      "@kilil/billing-service/*": ["services/billing-service/src/*"],
+      "@kilil/enrollment-service/*": ["services/enrollment-service/src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "strict": false,

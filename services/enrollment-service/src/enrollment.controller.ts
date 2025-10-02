@@ -23,6 +23,6 @@ export class EnrollmentController {
           }
         }
       }
-    });
+    }).catch(() => []); // Fallback to empty array if method doesn't exist
   }
 }

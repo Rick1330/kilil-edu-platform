@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { EnrollmentModule } from './enrollment.module';
-import { HealthController } from './health.controller';
+import { EnrollmentModule } from '@kilil/enrollment-service/enrollment.module';
+import { HealthController } from '@kilil/enrollment-service/health.controller';
 
 @Module({
   imports: [EnrollmentModule],

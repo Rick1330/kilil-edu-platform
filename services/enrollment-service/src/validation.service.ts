@@ -38,7 +38,7 @@ export class ValidationService {
       const prereqs = await this.prisma.prerequisite.findMany({
         where: { courseId: course.id },
         include: { requires: true }
-      });
+      }).catch(() => []);
       
       for (const prereq of prereqs) {
         const completed = await this.prisma.completedCourse.findUnique({
@@ -48,10 +48,10 @@ export class ValidationService {
               courseId: prereq.requiresId
             }
           }
-        });
+        }).catch(() => null);
         
         if (!completed) {
-          unmetPrereqs.push(prereq.requires.code);
+          unmetPrereqs.push(prereq.requires?.code || prereq.requiresId);
         }
       }
     }

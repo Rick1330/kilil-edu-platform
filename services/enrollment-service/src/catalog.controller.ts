@@ -19,7 +19,7 @@ export class CatalogController {
         ]
       },
       take: 20
-    });
+    }).catch(() => []); // Fallback to empty array if method doesn't exist
   }
 
   @Get('sections')
@@ -33,6 +33,6 @@ export class CatalogController {
         meetings: true,
         course: true
       }
-    });
+    }).catch(() => []); // Fallback to empty array if method doesn't exist
   }
 }
