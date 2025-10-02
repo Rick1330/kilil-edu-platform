@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 

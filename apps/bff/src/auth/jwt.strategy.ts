@@ -15,12 +15,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
         rateLimit: true,
         jwksRequestsPerMinute: 10,
         jwksUri: `${issuer}/protocol/openid-connect/certs`,
-      }) as any
+      })
     };
     super(opts);
   }
 
-  async validate(payload: any) {
+  async validate(payload: Record<string, unknown>) {
     return payload; // attach JWT payload to req.user
   }
 }
