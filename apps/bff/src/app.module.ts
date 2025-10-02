@@ -5,10 +5,13 @@ import { HealthController } from './health.controller';
 import { HelloResolver } from './hello.resolver';
 import { MeResolver } from './me.resolver';
 import { AuthModule } from './auth/auth.module';
+import { HttpModule } from '@nestjs/axios';
+import { BillingResolver } from './billing.resolver';
 
 @Module({
   imports: [
     AuthModule,
+    HttpModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -18,6 +21,6 @@ import { AuthModule } from './auth/auth.module';
     }),
   ],
   controllers: [HealthController],
-  providers: [HelloResolver, MeResolver],
+  providers: [HelloResolver, MeResolver, BillingResolver],
 })
 export class AppModule {}

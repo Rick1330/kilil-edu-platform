@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/package",
   "name": "@kilil/web-portal",
   "version": "0.1.0",
   "private": true,

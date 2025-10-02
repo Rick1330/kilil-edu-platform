@@ -20,6 +20,7 @@ This document lists the environment variables used across the KILIL Education Pl
 | KEYCLOAK_ISSUER_URL | Keycloak issuer URL | http://localhost:8080/realms/et-univ | OIDC configuration |
 | KEYCLOAK_WEB_CLIENT_ID | Keycloak web client ID | web-portal | OIDC client configuration |
 | KEYCLOAK_WEB_CLIENT_SECRET | Keycloak web client secret | CHANGE_ME_IN_REAL_KEYCLOAK | OIDC client authentication |
+| NEXT_PUBLIC_PAYMENTS_BASE | Payments adapter base URL | http://localhost:4002 | Payment simulation |
 
 ## BFF Service (@kilil/bff)
 
@@ -35,6 +36,8 @@ This document lists the environment variables used across the KILIL Education Pl
 | KEYCLOAK_REALM | Keycloak realm name | et-univ | OIDC configuration |
 | KEYCLOAK_CLIENT_ID | Keycloak client ID | bff | OIDC configuration |
 | KEYCLOAK_AUDIENCE | Keycloak audience | bff | OIDC configuration |
+| BILLING_BASE | Billing service base URL | http://localhost:4001 | Billing service integration |
+| PAYMENTS_BASE | Payments adapter base URL | http://localhost:4002 | Payments adapter integration |
 
 ## Service Packages
 
@@ -53,9 +56,10 @@ This document lists the environment variables used across the KILIL Education Pl
 ### Payments Adapter Service (@kilil/payments-adapter-service)
 | Variable | Purpose | Default | Where Used |
 |----------|---------|---------|------------|
-| PORT | HTTP server port | 3003 | Server configuration |
+| PORT | HTTP server port | 4002 | Server configuration |
 | TELEBIRR_API_KEY | Telebirr API key | (none) | Telebirr integration |
 | MPESA_API_KEY | M-Pesa API key | (none) | M-Pesa integration |
+| BILLING_INTERNAL_URL | Billing service internal URL | http://localhost:4001 | Billing service integration |
 
 ### Notifications Service (@kilil/notifications-service)
 | Variable | Purpose | Default | Where Used |
