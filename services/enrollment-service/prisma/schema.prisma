@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Term {
+  id        String   @id @default(uuid())
+  code      String   @unique     // e.g., 2025SP
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  sections  Section[]
+  enrollments Enrollment[]
+}
+
+model Course {
+  id        String   @id @default(uuid())
+  code      String   @unique     // e.g., CS120
+  title     String
+  credits   Int
+  prereqs   Prerequisite[] @relation("CoursePrereqs")
+  requiredBy Prerequisite[] @relation("CourseRequiredBy")
+  sections  Section[]
+  completedCourses CompletedCourse[]
+}
+
+model Prerequisite {
+  id          String  @id @default(uuid())
+  courseId    String
+  requiresId  String
+  course      Course  @relation("CoursePrereqs", fields: [courseId], references: [id])
+  requires    Course  @relation("CourseRequiredBy", fields: [requiresId], references: [id])
+
+  @@unique([courseId, requiresId])
+}
+
+model Section {
+  id          String     @id @default(uuid())
+  courseId    String
+  course      Course     @relation(fields: [courseId], references: [id])
+  termId      String
+  term        Term       @relation(fields: [termId], references: [id])
+  campus      String
+  capacity    Int
+  enrolled    Int        @default(0)
+  meetings    MeetingTime[]
+  enrollments Enrollment[]
+}
+
+model MeetingTime {
+  id        String  @id @default(uuid())
+  sectionId String
+  dayOfWeek Int     // 1=Mon … 7=Sun
+  startMin  Int     // minutes from 00:00
+  endMin    Int
+  section   Section @relation(fields: [sectionId], references: [id])
+}
+
+model Enrollment {
+  id        String  @id @default(uuid())
+  personId  String
+  sectionId String
+  termId    String
+  createdAt DateTime @default(now())
+  section   Section @relation(fields: [sectionId], references: [id])
+  term      Term    @relation(fields: [termId], references: [id])
+
+  @@unique([personId, sectionId])
+}
+
+model CompletedCourse {         // dev stub for prereq checks
+  id        String  @id @default(uuid())
+  personId  String
+  courseId  String
+  course    Course  @relation(fields: [courseId], references: [id])
+
+  @@unique([personId, courseId])
+}
+
+model RegistrationRequest {
+  id          String   @id @default(uuid())
+  personId    String
+  termId      String
+  clientRef   String   @unique
+  sectionIds  String[] // JSON array of section IDs
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

@@ -88,6 +88,12 @@ curl -X POST http://localhost:4000/graphql \
   -d '{"query":"{ me { sub email preferredUsername roles } securePing }"}'
 ```
 
+### Enrollment Service (NestJS)
+```bash
+pnpm --filter @kilil/enrollment-service dev
+```
+Health Check: http://localhost:4003/health
+
 ### Billing Service (NestJS)
 ```bash
 pnpm --filter @kilil/billing-service dev
@@ -99,6 +105,44 @@ Health Check: http://localhost:4001/health
 pnpm --filter @kilil/payments-adapter-service dev
 ```
 Health Check: http://localhost:4002/health
+
+## Registration Flow
+
+1. Start all required services:
+   ```bash
+   # In separate terminals:
+   pnpm --filter @kilil/enrollment-service dev
+   pnpm --filter @kilil/billing-service dev
+   pnpm --filter @kilil/payments-adapter-service dev
+   pnpm --filter @kilil/bff dev
+   pnpm --filter @kilil/web-portal dev
+   ```
+
+2. Seed minimal data (term 2025SP, CS120 with two sections):
+   ```bash
+   # Create term
+   curl -X POST http://localhost:4003/api/terms \
+     -H "Content-Type: application/json" \
+     -d '{"code": "2025SP", "name": "Spring 2025", "startDate": "2025-03-01", "endDate": "2025-06-30"}'
+   
+   # Create courses
+   curl -X POST http://localhost:4003/api/courses \
+     -H "Content-Type: application/json" \
+     -d '{"code": "CS120", "title": "Introduction to Programming", "credits": 3}'
+   
+   # Create sections
+   curl -X POST http://localhost:4003/api/sections \
+     -H "Content-Type: application/json" \
+     -d '{"courseId": "COURSE_ID", "termId": "TERM_ID", "campus": "Main Campus", "capacity": 30}'
+   ```
+
+3. Test the registration flow:
+   - Visit http://localhost:3000/registration
+   - Search for courses (e.g., "CS120")
+   - Add sections to your cart
+   - Click "Validate Registration" to check for conflicts
+   - If validation passes, click "Confirm Registration"
+   - View your schedule at the provided link
 
 ## Payment E2E Flow (Minimal Stub)
 
@@ -133,6 +177,7 @@ Health Check: http://localhost:4002/health
 Each service has example environment files:
 - BFF: `apps/bff/.env.example`
 - Web Portal: `apps/web-portal/.env.local.example`
+- Enrollment Service: `services/enrollment-service/.env.example`
 - Billing Service: `services/billing-service/.env.example`
 - Payments Adapter: `services/payments-adapter-service/.env.example`
 

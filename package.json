@@ -17,7 +17,11 @@
     "test:ci": "nx run-many --target=test --all --ci",
     "typecheck": "nx run-many --target=typecheck --all",
     "clean": "nx reset && rm -rf node_modules && rm -rf dist && rm -rf .next",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "enrollment:dev": "pnpm --filter @kilil/enrollment-service dev",
+    "enrollment:test": "pnpm --filter @kilil/enrollment-service test",
+    "enrollment:build": "pnpm --filter @kilil/enrollment-service build",
+    "enrollment:lint": "pnpm --filter @kilil/enrollment-service lint"
   },
   "devDependencies": {
     "@nx/devkit": "21.6.2",

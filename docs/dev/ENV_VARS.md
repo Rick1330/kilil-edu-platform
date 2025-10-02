@@ -38,14 +38,15 @@ This document lists the environment variables used across the KILIL Education Pl
 | KEYCLOAK_AUDIENCE | Keycloak audience | bff | OIDC configuration |
 | BILLING_BASE | Billing service base URL | http://localhost:4001 | Billing service integration |
 | PAYMENTS_BASE | Payments adapter base URL | http://localhost:4002 | Payments adapter integration |
+| ENROLLMENT_BASE | Enrollment service base URL | http://localhost:4003 | Enrollment service integration |
 
 ## Service Packages
 
 ### Enrollment Service (@kilil/enrollment-service)
 | Variable | Purpose | Default | Where Used |
 |----------|---------|---------|------------|
-| PORT | HTTP server port | 3001 | Server configuration |
-| DATABASE_URL | PostgreSQL connection string | postgresql://postgres:postgres@localhost:5432/et_univ | Database connection |
+| PORT | HTTP server port | 4003 | Server configuration |
+| DATABASE_URL | PostgreSQL connection string | postgresql://postgres:postgres@localhost:5432/et_univ?schema=public | Database connection |
 
 ### Billing Service (@kilil/billing-service)
 | Variable | Purpose | Default | Where Used |
