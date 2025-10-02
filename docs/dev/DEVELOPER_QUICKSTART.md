@@ -88,11 +88,53 @@ curl -X POST http://localhost:4000/graphql \
   -d '{"query":"{ me { sub email preferredUsername roles } securePing }"}'
 ```
 
+### Billing Service (NestJS)
+```bash
+pnpm --filter @kilil/billing-service dev
+```
+Health Check: http://localhost:4001/health
+
+### Payments Adapter Service (NestJS)
+```bash
+pnpm --filter @kilil/payments-adapter-service dev
+```
+Health Check: http://localhost:4002/health
+
+## Payment E2E Flow (Minimal Stub)
+
+1. Start all required services:
+   ```bash
+   # In separate terminals:
+   pnpm --filter @kilil/billing-service dev
+   pnpm --filter @kilil/payments-adapter-service dev
+   pnpm --filter @kilil/bff dev
+   pnpm --filter @kilil/web-portal dev
+   ```
+
+2. Create a test account and seed a charge:
+   ```bash
+   # Create a charge for account "ACC-123"
+   curl -X POST http://localhost:4001/billing/charges \
+     -H "Content-Type: application/json" \
+     -d '{"accountId": "ACC-123", "amountCents": 50000, "type": "tuition"}'
+   ```
+
+3. Test the payment flow:
+   - Visit http://localhost:3000/billing
+   - Enter "ACC-123" as the Account ID
+   - Click "Fetch" to see the balance and receipts
+   - Enter an amount and select a payment channel
+   - Click "Initiate" to create a payment intent
+   - Click "Simulate webhook" to settle the payment
+   - Click "Fetch" again to see the updated balance and new receipt
+
 ## Environment Variables
 
 Each service has example environment files:
 - BFF: `apps/bff/.env.example`
 - Web Portal: `apps/web-portal/.env.local.example`
+- Billing Service: `services/billing-service/.env.example`
+- Payments Adapter: `services/payments-adapter-service/.env.example`
 
 Copy these to `.env` or `.env.local` files respectively to use them locally.
 

@@ -52,15 +52,15 @@
 
 **Completed**: 2025-10-01
 
-### Phase 2: Minimal Payments E2E (Weeks 5-6)
+### Phase 2: Minimal Payments E2E (Weeks 5-6) ✅ **COMPLETED 2025-10-02**
 **Goal**: End-to-end stub payments: Billing + Payments Adapter + BFF + Web + Tests + Docs
 - [x] Billing service with Account/Charge/Payment/Receipt schema
-- [ ] Payments adapter with initiate (idempotent) + webhook → billing
-- [ ] BFF: myBilling query + initiatePayment mutation
-- [ ] Web: Billing page (balance, receipts, "Pay (stub)" + simulate webhook)
-- [ ] Billing integration tests (Testcontainers Postgres)
-- [ ] Docs: Reconciliation spec + ENV updates
-- [ ] CI: ensure tests stay Keycloak-free, Postgres only
+- [x] Payments adapter with initiate (idempotent) + webhook → billing
+- [x] BFF: myBilling query + initiatePayment mutation
+- [x] Web: Billing page (balance, receipts, "Pay (stub)" + simulate webhook)
+- [x] Billing integration tests (Testcontainers Postgres)
+- [x] Docs: Reconciliation spec + ENV updates
+- [x] CI: ensure tests stay Keycloak-free, Postgres only
 
 **Deliverables**:
 - Functional payment workflow with stubbed integrations
@@ -82,7 +82,9 @@
 - Security audit of payment components
 - Ministry financial regulations compliance check
 
-### Phase 3: Core Academic Services (Weeks 7-8) *Teaser*
+**Completed**: 2025-10-02
+
+### Phase 3: Core Academic Services (Weeks 7-8) *In Progress*
 **Goal**: Essential academic functionality
 - [ ] Student enrollment system
 - [ ] Course catalog management
@@ -291,6 +293,6 @@ During these periods:
 - [ ] Self-sustaining revenue model
 
 ---
-**Document Version**: 1.1
-**Last Updated**: 2025-10-01
-**Next Review**: End of Phase 1
+**Document Version**: 1.2
+**Last Updated**: 2025-10-02
+**Next Review**: End of Phase 2
